@@ -1,0 +1,43 @@
+%First we will create a start menu for the game.
+
+%Please note: I have am using the uifigure and uibutton. This is not taught
+%in the course, but it felt the most similar to Unity's button features,
+%which I enjoy using.
+
+function startMenu()
+    menuFig = uifigure('Name', 'Start Menu', 'Position', [300, 200, 600, 375]);
+    %This makes a GUI (Graphical User Interface) called Start Menu (via the
+    %use of name) with a position of x=300, y = 200, width=600 height=375.
+
+    % The start or exit buttons, which either 
+    uibutton(menuFig, 'Text', 'Start The Game! :D', 'Position', [200, 230, 200, 80], ...
+        'ButtonPushedFcn', @(src, event) onceStartButtonPressed(menuFig));
+
+    uibutton(menuFig, 'Text', 'Exit (Shutdown Matlab)', 'Position', [200, 100, 200, 80], ...
+        'ButtonPushedFcn', @(src, event) exitGame(menuFig));
+    
+    %In the uibutton functions, uibutton's Text and Start statments will
+    %the button with the text Start The Game! :D and Exit, position again stating the x,
+    %y, width and height of the buttons.
+    %The @s let my script run the button events when a certain condition
+    %is met. The src anonymouse @(src, event) lets the this function be
+    %easily used for simple tasks. I found this easier to implement than
+    %specific @ events.
+
+    uiwait(menuFig);
+    %Pauses script execution
+end
+
+function onceStartButtonPressed(menuFig)
+    uiresume(menuFig);   
+    close(menuFig);      
+    %These serve to close my GUI, and continue the main script.
+    saveFileSelect();
+end
+
+function exitGame(menuFig)
+    close(menuFig);  
+    disp("Game Exited."); 
+    pause(0.1); 
+    quit force; 
+end
